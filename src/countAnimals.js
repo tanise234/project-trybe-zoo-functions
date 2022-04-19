@@ -1,21 +1,35 @@
-const { species } = require("../data/zoo_data");
-const data = require("../data/zoo_data");
+const { species } = require('../data/zoo_data');
+const data = require('../data/zoo_data');
+
+const amountOfAnimals = () => {
+  // criar array de arrays, inverso de "Object.entries"
+  const arrayKeyValue = species.reduce((keyValue, specie) => {
+    keyValue.push([specie.name, specie.residents.length]);
+    return keyValue;
+  }, []);
+  // transformar o array de arrays em objeto
+  const list = Object.fromEntries(arrayKeyValue);
+  return list;
+};
 
 function countAnimals(animal) {
   // seu código aqui
   if (!animal) {
-    // criar array de arrays, inverso de "Object.entries"
-    const array_key_value = species.reduce((key_value, specie) => {
-      key_value.push([specie.name, specie.residents.length]);
-      return key_value;
-    }, []);
-    // transformar o array de arrays em objeto
-    const list = Object.fromEntries(array_key_value);
-    return list;
-  } else if (Object.values(animal) === ['specie'){
-    return species.find((specificSpecie) => specificSpecie.name === animal).residents.length;
+    return amountOfAnimals();
+  }
+  if (Object.values(animal).length === 1) {
+    return species.find(
+      (specificSpecie) => specificSpecie.name === animal.specie,
+    ).residents.length;
+  }
+  if (Object.values(animal).length === 2) {
+    const specificSpecies = species.find(
+      (specificSpecie) => specificSpecie.name === animal.specie,
+    );
+    return specificSpecies.residents.filter(
+      (specificSex) => specificSex.sex === animal.sex,
+    ).length;
   }
 }
-console.log(countAnimals({'specie': 'lions'}));
 
 module.exports = countAnimals;
