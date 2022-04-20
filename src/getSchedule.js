@@ -40,7 +40,10 @@ function getSchedule(scheduleTarget) {
   if (species.some((specie) => specie.name === scheduleTarget)) {
     return specificAnimal(scheduleTarget);
   }
+  const object = {};
+  arrayDays.forEach((day) => { object[day] = specificDay(day)[day]; });
+  return object;
 }
-console.log(getSchedule('Tuesday'));
+console.log(getSchedule('Tuesd'));
 
 module.exports = getSchedule;
