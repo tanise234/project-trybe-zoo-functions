@@ -1,5 +1,5 @@
-const { species } = require("../data/zoo_data");
-const data = require("../data/zoo_data");
+const { species } = require('../data/zoo_data');
+const data = require('../data/zoo_data');
 
 const arrayDays = Object.keys(data.hours);
 
@@ -14,27 +14,25 @@ const available = (day) => {
 };
 
 const specificDay = (day) => {
-  let object = {};
-  if (day === "Monday") {
+  const object = {};
+  if (day === 'Monday') {
     object[day] = {
-      officeHour: "CLOSED",
-      exhibition: "The zoo will be closed!",
+      officeHour: 'CLOSED',
+      exhibition: 'The zoo will be closed!',
     };
     return object;
-  } else {
-    object[day] = {
-      officeHour: `Open from ${data.hours[day].open}am until ${data.hours[day].close}pm`,
-      exhibition: available(day),
-    };
   }
+  object[day] = {
+    officeHour: `Open from ${data.hours[day].open}am until ${data.hours[day].close}pm`,
+    exhibition: available(day),
+  };
   return object;
 };
 
-// console.log(specificDay("Thursday"));
+// console.log(specificDay('Thursday'));
 
-const specificAnimal = (target) => {
-  return species.find((specie) => specie.name === target).availability;
-};
+const specificAnimal = (target) =>
+  species.find((specie) => specie.name === target).availability;
 
 function getSchedule(scheduleTarget) {
   // seu código aqui
@@ -45,6 +43,6 @@ function getSchedule(scheduleTarget) {
     return specificAnimal(scheduleTarget);
   }
 }
-console.log(getSchedule("Tuesday"));
+console.log(getSchedule('Tuesday'));
 
 module.exports = getSchedule;
