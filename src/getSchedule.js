@@ -29,8 +29,6 @@ const specificDay = (day) => {
   return object;
 };
 
-// console.log(specificDay('Thursday'));
-
 const specificAnimal = (target) =>
   species.find((specie) => specie.name === target).availability;
 
