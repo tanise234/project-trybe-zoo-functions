@@ -1,22 +1,36 @@
 const { species } = require("../data/zoo_data");
 const data = require("../data/zoo_data");
+
 const arrayDays = Object.keys(data.hours);
 
-const specificDay = (day) => {
-  const opening = arrayDays.find((arrayDay) => arrayDay === day).open;
-  const closing = arrayDays.find((arrayDay) => arrayDay === day).close;
-  const array = [
-    [day],
-    [
-      [
-        [`officeHour`],
-        [`Open from ${opening}am until ${closing}pm`],
-      ],
-      [[`exhibition`], [data.hours.day]],
-    ],
-  ];
-  return Object.fromEntries(array);
+const available = (day) => {
+  const animals = [];
+  species.forEach((specie) => {
+    if (specie.availability.includes(day)) {
+      animals.push(specie.name);
+    }
+  });
+  return animals;
 };
+
+const specificDay = (day) => {
+  let object = {};
+  if (day === "Monday") {
+    object[day] = {
+      officeHour: "CLOSED",
+      exhibition: "The zoo will be closed!",
+    };
+    return object;
+  } else {
+    object[day] = {
+      officeHour: `Open from ${data.hours[day].open}am until ${data.hours[day].close}pm`,
+      exhibition: available(day),
+    };
+  }
+  return object;
+};
+
+// console.log(specificDay("Thursday"));
 
 const specificAnimal = (target) => {
   return species.find((specie) => specie.name === target).availability;

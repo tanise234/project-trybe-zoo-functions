@@ -2,13 +2,11 @@ const { species } = require('../data/zoo_data');
 const data = require('../data/zoo_data');
 
 const oldest = (animalsId) => {
-  const arrayAnimals = species.find(
-    (specie) => specie.id === animalsId,
-  ).residents;
-  return arrayAnimals.reduce(
-    (oldestAnimal, eachAnimal) =>
-      oldestAnimal.age < eachAnimal.age ? eachAnimal : oldestAnimal,
-  );
+  const animal = species
+    .find((specie) => specie.id === animalsId)
+    .residents.reduce((oldestAnimal, eachAnimal) =>
+      oldestAnimal.age < eachAnimal.age ? eachAnimal : oldestAnimal);
+  return animal;
 };
 
 function getOldestFromFirstSpecies(id) {
